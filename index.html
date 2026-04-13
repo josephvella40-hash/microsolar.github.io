@@ -4,49 +4,118 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Micro Solar Malta | Engineering Sustainable Balconies</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --navy: #1B263B; --yellow: #F4D35E; }
-        body { font-family: sans-serif; margin: 0; color: var(--navy); line-height: 1.6; }
-        header { background: var(--navy); color: var(--yellow); padding: 40px; text-align: center; }
-        .container { max-width: 900px; margin: auto; padding: 20px; }
-        .calc-box { background: #f8f9fa; border: 2px solid var(--navy); padding: 25px; border-radius: 10px; margin: 20px 0; }
-        input { padding: 10px; width: 80%; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc; }
-        .btn { background: var(--yellow); color: var(--navy); padding: 12px 24px; border: none; font-weight: bold; cursor: pointer; border-radius: 5px; }
-        #result { font-weight: bold; font-size: 1.2rem; margin-top: 15px; color: #2d6a4f; }
+        :root {
+            --navy: #1B263B;
+            --yellow: #F4D35E;
+            --white: #FFFFFF;
+            --font-title: 'Montserrat', sans-serif;
+            --font-body: 'Open Sans', sans-serif;
+        }
+
+        body, html { height: 100%; margin: 0; font-family: var(--font-body); overflow-x: hidden; }
+
+        .background-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.4)), url('images/balcony-hero.jpg');
+            background-size: cover; background-position: center; z-index: -1;
+        }
+
+        main { display: flex; min-height: 100vh; justify-content: center; align-items: center; padding: 40px 20px; box-sizing: border-box; }
+
+        .wetransfer-widget {
+            background-color: var(--white);
+            width: 100%; max-width: 420px; padding: 40px;
+            border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .header-logo { text-align: center; margin-bottom: 25px; }
+        .header-logo img { max-width: 180px; }
+
+        h1 { font-family: var(--font-title); font-weight: 700; color: var(--navy); font-size: 28px; margin-bottom: 10px; }
+        .subtitle { font-size: 15px; color: #555; margin-bottom: 25px; line-height: 1.5; }
+
+        /* CALCULATOR & TECHNICAL SECTION */
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; font-size: 12px; font-weight: 700; color: var(--navy); text-transform: uppercase; margin-bottom: 5px; }
+        .input-group input { width: 100%; padding: 12px 0; border: none; border-bottom: 2px solid #EEE; font-size: 18px; outline: none; transition: 0.3s; }
+        .input-group input:focus { border-color: var(--navy); }
+
+        .btn-calc { background: var(--yellow); color: var(--navy); border: none; padding: 18px; width: 100%; font-family: var(--font-title); font-weight: 700; border-radius: 8px; cursor: pointer; font-size: 15px; }
+        
+        #results-area { display: none; margin-top: 25px; text-align: center; padding: 20px; background: #F8F9FA; border-radius: 8px; border-left: 4px solid var(--yellow); }
+        #result-text { font-family: var(--font-title); font-weight: 700; font-size: 18px; color: #2D6A4F; }
+
+        /* HOW IT WORKS TOGGLE */
+        .tech-toggle { margin-top: 30px; text-align: center; border-top: 1px solid #EEE; padding-top: 20px; }
+        .tech-link { font-size: 13px; color: var(--navy); text-decoration: underline; cursor: pointer; font-weight: 600; }
+        .tech-content { display: none; text-align: left; font-size: 13px; margin-top: 15px; color: #444; }
+        .tech-content ul { padding-left: 18px; }
+        .tech-content li { margin-bottom: 8px; }
+
+        footer { position: fixed; bottom: 20px; left: 20px; color: white; font-size: 12px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>MICRO SOLAR MALTA</h1>
-    <p>MSc. Sustainable Energy Engineers | Licensed Installers</p>
-</header>
+    <div class="background-container"></div>
 
-<div class="container">
-    <h2>Balcony Solar Savings Calculator</h2>
-    <div class="calc-box">
-        <p>Enter your average monthly electricity bill (€):</p>
-        <input type="number" id="bill" placeholder="e.g. 100">
-        <button class="btn" onclick="calculateSavings()">Calculate Yearly Savings</button>
-        <div id="result"></div>
-    </div>
+    <main>
+        <div class="wetransfer-widget">
+            <div class="header-logo">
+                <img src="images/logo-transparent.png" alt="Micro Solar Malta Logo">
+            </div>
+            
+            <h1>Smart Solar Savings</h1>
+            <p class="subtitle">Enter your monthly utility bill to estimate how much a professional balcony system can save you in Malta.</p>
+            
+            <div class="input-group">
+                <label>Monthly Electricity Bill (€)</label>
+                <input type="number" id="monthly-bill" placeholder="e.g. 100">
+            </div>
+            
+            <button class="btn-calc" onclick="runCalculation()">Estimate Savings</button>
+            
+            <div id="results-area">
+                <div id="result-text"></div>
+                <div style="font-size: 11px; margin-top: 10px; color: #777;">Based on peak Maltese irradiance & 25% self-consumption logic.</div>
+            </div>
 
-    <h2>Our Engineering Standards</h2>
-    <ul>
-        <li><strong>Wind Resistance:</strong> Mounting systems calculated for Maltese Majjistral wind loads.</li>
-        <li><strong>Zero Export:</strong> Integrated CT-meters for 100% self-consumption.</li>
-        <li><strong>Plug & Play:</strong> Complete Zendure kits tailored for apartments.</li>
-    </ul>
-</div>
+            <div class="tech-toggle">
+                <span class="tech-link" onclick="toggleTech()">How it Works (Engineering Specs)</span>
+                <div class="tech-content" id="tech-content">
+                    <strong>The Micro Solar Setup:</strong>
+                    <ul>
+                        <li><strong>Zero-Backfeed:</strong> We install Smart CT Meters that sync with the inverter to ensure energy stays in your home.</li>
+                        <li><strong>Maltese Wind-Load:</strong> Custom mounting brackets designed for Gale-force resistance (Grigal/Majjistral).</li>
+                        <li><strong>Licensed Certification:</strong> Every install is signed off by our warranted single-phase electricians.</li>
+                        <li><strong>Premium Hardware:</strong> Proud partners with leading German energy storage providers.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
 
-<script>
-function calculateSavings() {
-    let bill = document.getElementById('bill').value;
-    // Estimate 25% reduction for a standard 2-panel system in Malta's high-irradiance climate
-    let yearlySavings = (bill * 12) * 0.25;
-    document.getElementById('result').innerText = "Estimated Yearly Savings: €" + yearlySavings.toFixed(2);
-}
-</script>
+    <footer>
+        <strong>Micro Solar Malta</strong> | Masters in Sustainable Energy | <a href="mailto:info@microsolarmalta.com" style="color:white;">info@microsolarmalta.com</a>
+    </footer>
 
+    <script>
+        function runCalculation() {
+            let bill = document.getElementById('monthly-bill').value;
+            if (bill < 10) return;
+            let yearlySavings = (bill * 12) * 0.25;
+            document.getElementById('result-text').innerText = "Estimated Yearly Savings: €" + yearlySavings.toFixed(2);
+            document.getElementById('results-area').style.display = "block";
+        }
+
+        function toggleTech() {
+            let content = document.getElementById('tech-content');
+            content.style.display = (content.style.display === "block") ? "none" : "block";
+        }
+    </script>
 </body>
 </html>
