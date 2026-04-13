@@ -3,119 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Micro Solar Malta | Engineering Sustainable Balconies</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --navy: #1B263B;
-            --yellow: #F4D35E;
-            --white: #FFFFFF;
-            --font-title: 'Montserrat', sans-serif;
-            --font-body: 'Open Sans', sans-serif;
-        }
-
-        body, html { height: 100%; margin: 0; font-family: var(--font-body); overflow-x: hidden; }
-
-        .background-container {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.4)), url('images/balcony-hero.jpg');
-            background-size: cover; background-position: center; z-index: -1;
-        }
-
-        main { display: flex; min-height: 100vh; justify-content: center; align-items: center; padding: 40px 20px; box-sizing: border-box; }
-
-        .wetransfer-widget {
-            background-color: var(--white);
-            width: 100%; max-width: 420px; padding: 40px;
-            border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-        }
-
-        .header-logo { text-align: center; margin-bottom: 25px; }
-        .header-logo img { max-width: 180px; }
-
-        h1 { font-family: var(--font-title); font-weight: 700; color: var(--navy); font-size: 28px; margin-bottom: 10px; }
-        .subtitle { font-size: 15px; color: #555; margin-bottom: 25px; line-height: 1.5; }
-
-        /* CALCULATOR & TECHNICAL SECTION */
-        .input-group { margin-bottom: 20px; }
-        .input-group label { display: block; font-size: 12px; font-weight: 700; color: var(--navy); text-transform: uppercase; margin-bottom: 5px; }
-        .input-group input { width: 100%; padding: 12px 0; border: none; border-bottom: 2px solid #EEE; font-size: 18px; outline: none; transition: 0.3s; }
-        .input-group input:focus { border-color: var(--navy); }
-
-        .btn-calc { background: var(--yellow); color: var(--navy); border: none; padding: 18px; width: 100%; font-family: var(--font-title); font-weight: 700; border-radius: 8px; cursor: pointer; font-size: 15px; }
-        
-        #results-area { display: none; margin-top: 25px; text-align: center; padding: 20px; background: #F8F9FA; border-radius: 8px; border-left: 4px solid var(--yellow); }
-        #result-text { font-family: var(--font-title); font-weight: 700; font-size: 18px; color: #2D6A4F; }
-
-        /* HOW IT WORKS TOGGLE */
-        .tech-toggle { margin-top: 30px; text-align: center; border-top: 1px solid #EEE; padding-top: 20px; }
-        .tech-link { font-size: 13px; color: var(--navy); text-decoration: underline; cursor: pointer; font-weight: 600; }
-        .tech-content { display: none; text-align: left; font-size: 13px; margin-top: 15px; color: #444; }
-        .tech-content ul { padding-left: 18px; }
-        .tech-content li { margin-bottom: 8px; }
-
-        footer { position: fixed; bottom: 20px; left: 20px; color: white; font-size: 12px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
-    </style>
+    <title>Micro Solar Malta | Smart Energy Solutions</title>
+    <meta name="description" content="Micro Solar Malta provides professional balcony solar systems designed for the Maltese climate. Calculate your savings today.">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="background-container"></div>
+    <div class="background-overlay"></div>
+    <div class="background-image" style="background-image: url('images/hero.png');"></div>
 
     <main>
         <div class="wetransfer-widget">
-            <div class="header-logo">
-                <img src="images/logo-transparent.png" alt="Micro Solar Malta Logo">
-            </div>
-            
-            <h1>Smart Solar Savings</h1>
-            <p class="subtitle">Enter your monthly utility bill to estimate how much a professional balcony system can save you in Malta.</p>
-            
-            <div class="input-group">
-                <label>Monthly Electricity Bill (€)</label>
-                <input type="number" id="monthly-bill" placeholder="e.g. 100">
-            </div>
-            
-            <button class="btn-calc" onclick="runCalculation()">Estimate Savings</button>
-            
-            <div id="results-area">
-                <div id="result-text"></div>
-                <div style="font-size: 11px; margin-top: 10px; color: #777;">Based on peak Maltese irradiance & 25% self-consumption logic.</div>
+            <header>
+                <div class="logo-container">
+                    <!-- Space for Logo -->
+                    <div class="placeholder-logo">MICRO<span>SOLAR</span></div>
+                </div>
+                <nav>
+                    <button class="nav-tab active" onclick="switchTab('home', event)">Home</button>
+                    <button class="nav-tab" onclick="switchTab('about', event)">About Us</button>
+                    <button class="nav-tab" onclick="switchTab('calculator', event)">Calculate</button>
+                    <button class="nav-tab" onclick="switchTab('contact', event)">Contact</button>
+                </nav>
+            </header>
+
+            <div class="widget-content">
+                <!-- Home Section -->
+                <section id="home" class="tab-content active">
+                    <h1>Future-Proof Your Balcony</h1>
+                    <p class="subtitle">Join the green revolution in Malta with our bespoke solar solutions. Sustainable, efficient, and designed for our unique climate.</p>
+                    <div class="cta-area">
+                        <button class="btn-primary" onclick="switchTab('calculator', event)">Estimate Your Savings</button>
+                    </div>
+                </section>
+
+                <!-- About Us Section -->
+                <section id="about" class="tab-content">
+                    <h1>Masters in Energy</h1>
+                    <p class="subtitle">We are a team of certified engineers dedicated to bringing sustainable energy to urban spaces in Malta.</p>
+                    <ul class="feature-list">
+                        <li><strong>Zero-Backfeed:</strong> Smart CT Meters included.</li>
+                        <li><strong>Wind-Load Tested:</strong> Built for Majjistral gusts.</li>
+                        <li><strong>Warranted:</strong> Signed off by licensed electricians.</li>
+                    </ul>
+                </section>
+
+                <!-- Calculator Section -->
+                <section id="calculator" class="tab-content">
+                    <h1>Smart Savings</h1>
+                    <p class="subtitle">Enter your monthly utility bill to see how much you can save with a Micro Solar system.</p>
+                    <div class="input-group">
+                        <label for="monthly-bill">Monthly Electricity Bill (€)</label>
+                        <input type="number" id="monthly-bill" placeholder="e.g. 100" required>
+                    </div>
+                    <button class="btn-primary" onclick="runCalculation()">Calculate Savings</button>
+                    <div id="results-area" class="results-card">
+                        <div id="result-text"></div>
+                        <p class="disclaimer">Based on peak Maltese irradiance & 25% self-consumption logic.</p>
+                    </div>
+                </section>
+
+                <!-- Contact Section -->
+                <section id="contact" class="tab-content">
+                    <h1>Get in Touch</h1>
+                    <p class="subtitle">Ready to start your solar journey? Send us a message.</p>
+                    <div class="form-group">
+                        <input type="text" id="contact-name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="contact-email" placeholder="Email Address" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="contact-message" placeholder="How can we help?" required></textarea>
+                    </div>
+                    <button class="btn-primary" onclick="submitForm()">Send Message</button>
+                    <div id="form-feedback" class="feedback"></div>
+                </section>
             </div>
 
-            <div class="tech-toggle">
-                <span class="tech-link" onclick="toggleTech()">How it Works (Engineering Specs)</span>
-                <div class="tech-content" id="tech-content">
-                    <strong>The Micro Solar Setup:</strong>
-                    <ul>
-                        <li><strong>Zero-Backfeed:</strong> We install Smart CT Meters that sync with the inverter to ensure energy stays in your home.</li>
-                        <li><strong>Maltese Wind-Load:</strong> Custom mounting brackets designed for Gale-force resistance (Grigal/Majjistral).</li>
-                        <li><strong>Licensed Certification:</strong> Every install is signed off by our warranted single-phase electricians.</li>
-                        <li><strong>Premium Hardware:</strong> Proud partners with leading German energy storage providers.</li>
-                    </ul>
-                </div>
-            </div>
+            <footer>
+                <p>&copy; 2026 Micro Solar Malta | <a href="mailto:info@microsolarmalta.com">info@microsolarmalta.com</a></p>
+            </footer>
         </div>
     </main>
 
-    <footer>
-        <strong>Micro Solar Malta</strong> | Masters in Sustainable Energy | <a href="mailto:info@microsolarmalta.com" style="color:white;">info@microsolarmalta.com</a>
-    </footer>
-
-    <script>
-        function runCalculation() {
-            let bill = document.getElementById('monthly-bill').value;
-            if (bill < 10) return;
-            let yearlySavings = (bill * 12) * 0.25;
-            document.getElementById('result-text').innerText = "Estimated Yearly Savings: €" + yearlySavings.toFixed(2);
-            document.getElementById('results-area').style.display = "block";
-        }
-
-        function toggleTech() {
-            let content = document.getElementById('tech-content');
-            content.style.display = (content.style.display === "block") ? "none" : "block";
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
