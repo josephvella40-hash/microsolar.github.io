@@ -1,33 +1,43 @@
+index.html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Micro Solar Malta | Smart Energy Solutions</title>
-    <meta name="description" content="Micro Solar Malta provides professional balcony solar systems designed for the Maltese climate. Calculate your savings today.">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <meta name="description"
+        content="Micro Solar Malta provides professional balcony solar systems designed for the Maltese climate. Calculate your savings today.">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Outfit:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <div class="background-overlay"></div>
-    <div class="background-image" style="background-image: url('images/hero.png');"></div>
+    <div class="slideshow-container">
+        <div class="slide active" style="background-image: url('images/hero1.png');"></div>
+        <div class="slide" style="background-image: url('images/hero2.png');"></div>
+        <div class="slide" style="background-image: url('images/hero3.png');"></div>
+    </div>
+
+    <header class="main-header">
+        <div class="logo-container">
+            <img src="images/Logo-Transparent.png" alt="Micro Solar Malta Logo">
+            <div class="logo-text">MICRO<span>SOLAR MALTA</span></div>
+        </div>
+        <nav class="top-nav">
+            <button class="nav-link active" onclick="switchTab('home', event)">Home</button>
+            <button class="nav-link" onclick="switchTab('about', event)">About</button>
+            <button class="nav-link" onclick="switchTab('calculator', event)">Calculate</button>
+            <button class="nav-link link-highlight" onclick="switchTab('contact', event)">Contact</button>
+        </nav>
+    </header>
 
     <main>
         <div class="wetransfer-widget">
-            <header>
-                <div class="logo-container">
-                    <img src="images/Logo-Transparent.png" alt="Micro Solar Malta Logo">
-                    <div class="placeholder-logo">MICRO<span>SOLAR MALTA</span></div>
-                </div>
-                <nav>
-                    <button class="nav-tab active" onclick="switchTab('home', event)">Home</button>
-                    <button class="nav-tab" onclick="switchTab('about', event)">About Us</button>
-                    <button class="nav-tab" onclick="switchTab('calculator', event)">Calculate</button>
-                    <button class="nav-tab" onclick="switchTab('contact', event)">Contact</button>
-                </nav>
-            </header>
-
             <div class="widget-content">
                 <!-- Home Section -->
                 <section id="home" class="tab-content active">
@@ -35,6 +45,7 @@
                     <p class="subtitle">Join the green revolution in Malta with our bespoke solar solutions. Sustainable, efficient, and designed for our unique climate.</p>
                     <div class="cta-area">
                         <button class="btn-primary" onclick="switchTab('calculator', event)">Estimate Your Savings</button>
+                        <button class="btn-secondary" onclick="switchTab('contact', event)">Get in Touch</button>
                     </div>
                 </section>
 
@@ -51,16 +62,115 @@
 
                 <!-- Calculator Section -->
                 <section id="calculator" class="tab-content">
-                    <h1>Smart Savings</h1>
-                    <p class="subtitle">Enter your monthly utility bill to see how much you can save with a Micro Solar system.</p>
-                    <div class="input-group">
-                        <label for="monthly-bill">Monthly Electricity Bill (€)</label>
-                        <input type="number" id="monthly-bill" placeholder="e.g. 100" required>
-                    </div>
-                    <button class="btn-primary" onclick="runCalculation()">Calculate Savings</button>
-                    <div id="results-area" class="results-card">
-                        <div id="result-text"></div>
-                        <p class="disclaimer">Based on peak Maltese irradiance & 25% self-consumption logic.</p>
+                    <div class="calculator-grid">
+                        <!-- Widget 1: Input Parameters -->
+                        <div class="params-widget">
+                            <h1>Solar Potential</h1>
+                            <p class="subtitle">Optimize your setup for the Maltese sun.</p>
+                            
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label>Balcony Length (m)</label>
+                                    <input type="number" id="len" value="6" step="0.1" oninput="updateAll()">
+                                </div>
+                                <div class="input-group">
+                                    <label>System Cost (€)</label>
+                                    <input type="number" id="cost" value="1300" step="50" oninput="updateAll()">
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label>Facing Direction</label>
+                                <select id="dir" onchange="updateAll()" class="custom-select">
+                                    <option value="0">South (Optimal)</option>
+                                    <option value="-45">South-East</option>
+                                    <option value="45">South-West</option>
+                                    <option value="-90">East</option>
+                                    <option value="90">West</option>
+                                </select>
+                            </div>
+
+                            <div class="input-group">
+                                <label>Mount Tilt</label>
+                                <select id="tilt" onchange="updateAll()" class="custom-select">
+                                    <option value="15">15° Outward Tilt</option>
+                                    <option value="0">0° Flush Vertical</option>
+                                </select>
+                            </div>
+
+                            <div class="calc-sub-header">Obstruction Analysis</div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label>Distance (m)</label>
+                                    <input type="number" id="dist" value="10" step="0.5" oninput="updateAll()">
+                                </div>
+                                <div class="input-group">
+                                    <label>Height (m)</label>
+                                    <input type="number" id="hgt" value="6" step="0.5" oninput="updateAll()">
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label>Obs. Width (m)</label>
+                                    <input type="number" id="obsW" value="5" step="0.5" oninput="updateAll()">
+                                </div>
+                                <div class="input-group">
+                                    <label>Position</label>
+                                    <select id="obsPos" onchange="updateAll()" class="custom-select">
+                                        <option value="left">Left Edge</option>
+                                        <option value="right">Right Edge</option>
+                                        <option value="center" selected>Centered</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Widget 2: Visualization & Simulation -->
+                        <div class="sim-widget">
+                            <div class="viz-grid">
+                                <div class="viz-card">
+                                    <div class="viz-label">Side Profile</div>
+                                    <canvas id="sideViz" width="400" height="220"></canvas>
+                                </div>
+                                <div class="viz-card">
+                                    <div class="viz-label">Front View</div>
+                                    <canvas id="frontViz" width="400" height="220"></canvas>
+                                </div>
+                            </div>
+
+                            <div class="simulation-controls">
+                                <div class="calc-sub-header">Simulation Settings</div>
+                                <div class="input-group">
+                                    <div class="slider-label">Month: <span id="monthLabel">June</span></div>
+                                    <input type="range" id="month" min="0" max="11" value="5" oninput="updateAll()"
+                                        class="slider">
+                                </div>
+                                <div class="input-group">
+                                    <div class="slider-label">Time: <span id="timeLabel">12:00</span></div>
+                                    <input type="range" id="hour" min="5" max="19" step="0.25" value="12" oninput="updateAll()"
+                                        class="slider">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Widget 3: Calculations & Performance -->
+                        <div class="perf-widget">
+                            <div class="calc-sub-header">Performance</div>
+                            <div class="results-grid-vertical">
+                                <div class="res-card">
+                                    <span class="res-label">Annual Yield</span>
+                                    <div class="res-value"><span id="yieldVal">0</span> <small>kWh</small></div>
+                                </div>
+                                <div class="res-card">
+                                    <span class="res-label">Annual Savings</span>
+                                    <div class="res-value">€<span id="savingsVal">0</span></div>
+                                </div>
+                                <div class="res-card highlight">
+                                    <span class="res-label">Payback Period</span>
+                                    <div class="res-value"><span id="roiVal">0</span> <small>Years</small></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
@@ -83,11 +193,13 @@
             </div>
 
             <footer>
-                <p>&copy; 2026 Micro Solar Malta | <a href="mailto:info@microsolarmalta.com">info@microsolarmalta.com</a></p>
+                <p>&copy; 2026 Micro Solar Malta | <a
+                        href="mailto:admin@microsolarmalta.com">info@microsolarmalta.com</a></p>
             </footer>
         </div>
     </main>
 
     <script src="script.js"></script>
 </body>
+
 </html>
