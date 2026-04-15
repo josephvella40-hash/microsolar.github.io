@@ -1,4 +1,3 @@
-script.js
 // --- Tab Switching & Dynamic Expansion ---
 function switchTab(tabId, event) {
     const widget = document.querySelector('.wetransfer-widget');
